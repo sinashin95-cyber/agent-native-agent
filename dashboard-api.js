@@ -152,6 +152,7 @@ function createDashboardApi(core, opts) {
       throw new Error(`state.json shape invalid (${file})`);
     if (!Array.isArray(s.events)) s.events = []; // 일정(달력) — 할일(items)과 별도
     if (!Array.isArray(s.notes)) s.notes = []; // 메모 — {id, title, text, updatedAt}
+    if (!Array.isArray(s.exhibits)) s.exhibits = []; // 감정물 — {id, caseNo, label, kind, exps:[{id, name, done, date, result, interp}]}
     if (!Array.isArray(s.links)) s.links = []; // 명시적 관계 — {from, to, type, at, by} (graph.js 참고)
     if (typeof s.version !== 'number' || !Number.isFinite(s.version)) s.version = 1;
     return s;
@@ -1077,6 +1078,57 @@ function createDashboardApi(core, opts) {
       s.version = (s.version || 1) + 1; saveData(s);
       broadcast({ kind: 'data', version: s.version });
       return sendJson(res, 200, { ok: true, version: s.version, id: noteId }), true;
+    }
+
+    // 감정물 CRUD — 사건번호·감정물(시료)·종류, 그 아래 실험(진행할/진행한)과 실험별 결과·해석
+    // {action:'add'|'update'|'remove'|'expAdd'|'expUpdate'|'expRemove', id, expId, ...}
+    if (p === '/api/exhibit' && req.method === 'POST') {
+      if (!csrfOk(req)) return sendJson(res, 403, { error: 'forbidden (origin/content-type)' }), true;
+      const body = await jsonBody(req, res); if (!body) return true;
+      let s; try { s = loadData(); } catch (e) { return sendJson(res, 500, { error: 'state file corrupt', detail: e.message }), true; }
+      const str = (v, n) => String(v == null ? '' : v).slice(0, n);
+      const now = new Date().toISOString();
+      let outId;
+      if (body.action === 'add') {
+        const x = { id: newId('x'), caseNo: str(body.caseNo, 100).trim(), label: str(body.label, 100).trim(), kind: str(body.kind, 100).trim(), exps: [], by: actor(req), updatedAt: now };
+        if (!x.caseNo) return sendJson(res, 400, { error: 'caseNo required' }), true;
+        s.exhibits.push(x); outId = x.id;
+        touchUser(actor(req)); audit(actor(req), 'exhibit.add', `${x.caseNo} ${x.label}`.trim().slice(0, 80));
+      } else {
+        const x = s.exhibits.find((y) => y.id === body.id);
+        if (!x) return sendJson(res, 404, { error: 'not found' }), true;
+        if (!owns(x, actor(req))) return sendJson(res, 403, { error: 'Only the author can edit this' }), true;
+        if (!Array.isArray(x.exps)) x.exps = [];
+        if (body.action === 'update') {
+          for (const k of ['caseNo', 'label', 'kind']) if (body[k] !== undefined) x[k] = str(body[k], 100);
+          outId = x.id;
+        } else if (body.action === 'remove') {
+          s.exhibits = s.exhibits.filter((y) => y.id !== x.id);
+          audit(actor(req), 'exhibit.remove', `${x.caseNo} ${x.label}`.trim().slice(0, 80));
+        } else if (body.action === 'expAdd') {
+          const name = str(body.name, 200).trim();
+          if (!name) return sendJson(res, 400, { error: 'name required' }), true;
+          const e = { id: newId('xe'), name, done: !!body.done, date: body.done ? now.slice(0, 10) : '', result: '', interp: '', updatedAt: now };
+          x.exps.push(e); outId = e.id;
+          audit(actor(req), 'exhibit.exp.add', `${x.caseNo}: ${name}`.slice(0, 80));
+        } else if (body.action === 'expUpdate' || body.action === 'expRemove') {
+          const e = x.exps.find((y) => y.id === body.expId);
+          if (!e) return sendJson(res, 404, { error: 'experiment not found' }), true;
+          if (body.action === 'expRemove') x.exps = x.exps.filter((y) => y.id !== e.id);
+          else {
+            if (body.name !== undefined && str(body.name, 200).trim()) e.name = str(body.name, 200).trim();
+            if (body.done !== undefined) { e.done = !!body.done; if (e.done && !e.date) e.date = now.slice(0, 10); }
+            if (body.date !== undefined) e.date = /^\d{4}-\d{2}-\d{2}$/.test(String(body.date)) ? String(body.date) : '';
+            if (body.result !== undefined) e.result = str(body.result, 20000);
+            if (body.interp !== undefined) e.interp = str(body.interp, 20000);
+            e.updatedAt = now; outId = e.id;
+          }
+        } else return sendJson(res, 400, { error: 'action must be add|update|remove|expAdd|expUpdate|expRemove' }), true;
+        x.updatedAt = now;
+      }
+      s.version = (s.version || 1) + 1; saveData(s);
+      broadcast({ kind: 'data', version: s.version });
+      return sendJson(res, 200, { ok: true, version: s.version, id: outId }), true;
     }
 
     // 에이전트 대화 기록(Claude Code JSONL) — {available, title, rev, items}. 없으면 화면은 채널 원장으로 그린다.

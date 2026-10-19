@@ -251,6 +251,49 @@ body.chat-collapsed .chat-open-btn { display: inline-flex; }
 
 /* 메모 탭 — 좌: 목록 / 우: 편집기 */
 #memoView .wrap { max-width: 1100px; }
+/* ---- 감정물 (좌: 사건번호·감정물 / 중: 실험 / 우: 결과·해석) ---- */
+#exhibitView .wrap { max-width: 1440px; }
+.xb-layout { display: grid; grid-template-columns: 290px minmax(0, 1fr) minmax(0, 1.25fr); gap: 16px; align-items: start; }
+.xb-col { padding: 14px; min-width: 0; max-height: calc(100dvh - var(--header-h) - 110px); overflow-y: auto; overflow-x: hidden; }
+.xb-h { font-size: 13px; font-weight: 800; color: var(--text-sub); margin: 2px 2px 10px; }
+.xb-add { display: flex; flex-direction: column; gap: 6px; padding-bottom: 12px; border-bottom: 1px solid var(--line-2); margin-bottom: 10px; }
+.xb-row { display: flex; gap: 6px; } .xb-row > input { flex: 1; min-width: 0; }
+.xb-add input, .xb-search, .xb-expadd input, .xb-head input, .xb-rec input { height: 36px; padding: 0 10px; border-radius: var(--r-xs); border: 1px solid var(--line); background: var(--surface-2); color: var(--text); font: inherit; font-size: 13.5px; outline: none; }
+.xb-add input:focus, .xb-search:focus, .xb-expadd input:focus, .xb-head input:focus, .xb-rec input:focus, .xb-rec textarea:focus { border-color: var(--blue); }
+.xb-add button, .xb-expadd button { height: 36px; border-radius: var(--r-xs); background: var(--blue-weak); color: var(--blue-700); font-weight: 800; font-size: 13px; }
+.xb-search { width: 100%; margin-bottom: 8px; }
+.xb-case { margin-bottom: 8px; }
+.xb-case-h { font-size: 12px; font-weight: 800; color: var(--text-weak); padding: 6px 4px 4px; letter-spacing: .01em; }
+.xb-item { display: flex; align-items: center; gap: 8px; padding: 9px 10px; border-radius: var(--r-xs); cursor: pointer; }
+.xb-item:hover { background: var(--surface-2); } .xb-item.sel { background: var(--blue-weak); }
+.xb-item .xl { flex: 1; min-width: 0; font-size: 14px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.xb-kind { flex: 0 0 auto; font-size: 11.5px; font-weight: 800; padding: 2px 8px; border-radius: 999px; background: var(--surface-2); color: var(--text-sub); border: 1px solid var(--line-2); }
+.xb-cnt { flex: 0 0 auto; font-size: 11px; font-weight: 700; color: var(--text-weak); }
+.xb-head { display: flex; flex-direction: column; gap: 6px; padding-bottom: 12px; border-bottom: 1px solid var(--line-2); margin-bottom: 12px; }
+.xb-head label, .xb-rec label { font-size: 11.5px; font-weight: 800; color: var(--text-weak); }
+.xb-head .xb-row label { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+.xb-sec { font-size: 13px; font-weight: 800; color: var(--text-sub); margin: 14px 2px 6px; display: flex; align-items: center; gap: 6px; }
+.xb-sec .n { font-size: 11px; color: var(--text-weak); }
+.xb-exp { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: var(--r-xs); cursor: pointer; }
+.xb-exp:hover { background: var(--surface-2); } .xb-exp.sel { background: var(--blue-weak); }
+.xb-exp input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--blue); flex: 0 0 auto; }
+.xb-exp .en { flex: 1; min-width: 0; font-size: 14px; font-weight: 700; }
+.xb-exp .ed { font-size: 11.5px; color: var(--text-weak); font-weight: 700; }
+.xb-exp .ek { font-size: 11px; font-weight: 800; color: var(--success); }
+.xb-exp.done .en { color: var(--text-sub); }
+.xb-expadd { display: flex; gap: 6px; margin-top: 8px; } .xb-expadd input { flex: 1; min-width: 0; } .xb-expadd button { padding: 0 12px; }
+.xb-empty-s { font-size: 12.5px; color: var(--text-weak); padding: 6px 10px; }
+.xb-rec { display: flex; flex-direction: column; gap: 8px; }
+.xb-rec .rt { font-size: 17px; font-weight: 800; letter-spacing: -0.02em; }
+.xb-rec .rs { font-size: 12px; color: var(--text-weak); font-weight: 700; margin-top: -4px; }
+.xb-rec textarea { min-height: 170px; padding: 10px 12px; border-radius: var(--r-xs); border: 1px solid var(--line); background: var(--surface-2); color: var(--text); font: inherit; font-size: 14px; line-height: 1.65; resize: vertical; outline: none; }
+.xb-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; } .xb-bar .sp { flex: 1; }
+.xb-bar .mstate { font-size: 12px; color: var(--text-weak); font-weight: 700; }
+.xb-fl { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; } .xb-fd { flex: 0 0 150px; }
+.xb-del { height: 30px; padding: 0 12px; border-radius: 999px; background: var(--danger-bg); color: var(--danger); font-size: 12px; font-weight: 800; }
+.xb-none { display: flex; align-items: center; justify-content: center; min-height: 260px; color: var(--text-weak); font-weight: 600; font-size: 13.5px; text-align: center; padding: 0 12px; }
+@media (max-width: 1099px) { .xb-layout { grid-template-columns: 260px minmax(0, 1fr); } .xb-layout > .xb-col:last-child { grid-column: 1 / -1; } }
+@media (max-width: 760px) { .xb-layout { grid-template-columns: minmax(0, 1fr); } .xb-col { max-height: none; } }
 .memo-layout { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 16px; align-items: start; }
 .memo-side { padding: 8px; min-width: 0; max-height: calc(100dvh - var(--header-h) - 130px); overflow-y: auto; overflow-x: hidden; }
 .memo-item { padding: 10px 12px; border-radius: var(--r-xs); cursor: pointer; transition: background .12s; }
@@ -1269,6 +1312,7 @@ body.sys-mode .ws-combo { display: none; }
       </div>
     </div>
     <div class="tabstrip">
+      <button class="tab" data-view="exhibit" data-group="ws" role="tab" aria-selected="false">감정물</button>
       <button class="tab on" data-view="todo" data-group="ws" role="tab" aria-selected="true">Tasks</button>
       <button class="tab" data-view="schedule" data-group="ws" role="tab" aria-selected="false">Calendar</button>
       <button class="tab" data-view="memo" data-group="ws" role="tab" aria-selected="false">Notes</button>
@@ -1363,6 +1407,33 @@ body.sys-mode .ws-combo { display: none; }
             <button class="mdel" id="mmDel">Delete</button></div>
         </div>
         <div class="memo-none" id="memoNone">Select a note, or add one with the ＋ button in the list</div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="view" id="exhibitView" role="tabpanel"><div class="wrap">
+    <div class="xb-layout">
+      <aside class="xb-col card" aria-label="감정물 목록">
+        <div class="xb-h">감정물</div>
+        <form class="xb-add" id="xbAddForm" autocomplete="off">
+          <input id="xbCase" placeholder="사건번호 (예: 2026-감정-0123)" aria-label="사건번호" required maxlength="100" list="xbCaseList">
+          <datalist id="xbCaseList"></datalist>
+          <div class="xb-row"><input id="xbLabel" placeholder="감정물 번호 (예: 1-1)" aria-label="감정물 번호" maxlength="100">
+          <input id="xbKind" placeholder="종류 (예: 혈액)" aria-label="감정물 종류" maxlength="100" list="xbKindList"></div>
+          <datalist id="xbKindList"><option value="혈액"><option value="소변"><option value="위내용물"><option value="모발"><option value="간 조직"><option value="식물 시료"><option value="분말"><option value="액체"></datalist>
+          <button type="submit">＋ 감정물 추가</button>
+        </form>
+        <input class="xb-search" id="xbSearch" placeholder="사건번호·종류 검색" aria-label="감정물 검색">
+        <div id="xbList"></div>
+        <div class="empty" id="xbEmpty">아직 감정물이 없어요 — 위에서 사건번호와 종류를 넣어 추가하세요</div>
+      </aside>
+      <div class="xb-col card" aria-label="실험 목록">
+        <div id="xbExps"></div>
+        <div class="xb-none" id="xbExpsNone">왼쪽에서 감정물을 고르세요</div>
+      </div>
+      <div class="xb-col card" aria-label="실험 기록장">
+        <div id="xbRec"></div>
+        <div class="xb-none" id="xbRecNone">가운데에서 실험을 고르면 결과와 해석을 기록할 수 있어요</div>
       </div>
     </div>
   </div></section>
@@ -1676,16 +1747,16 @@ let logMode = false, logRev = 0, logSession = '', logTimer = null, logBusy = fal
 const logOpen = new Set();          // 사용자가 펼쳐 둔 도구 묶음(다시 그려도 유지)   // attachments: {name, size, path, pending}
 
 /* ================= 데이터 (할일 + 일정) ================= */
-let dataVersion = 0, items = [], events = [], notes = [], graphLinks = [];
+let dataVersion = 0, items = [], events = [], notes = [], exhibits = [], graphLinks = [];
 const proposals = new Map();
 async function refreshData() {
   let s;
   try { s = await (await getJSON('/api/state')); } catch { return; }
   dataVersion = s.version || 1;
-  items = s.items || []; events = s.events || []; notes = s.notes || [];
+  items = s.items || []; events = s.events || []; notes = s.notes || []; exhibits = s.exhibits || [];
   graphLinks = (s.graph && s.graph.links) || [];   // NodeRel이 만든 관계(파생 DUE_ON/ON 포함)
   (s.proposals || []).forEach((p) => proposals.set(p.id, p)); renderApprovals();
-  renderTodos(); renderCalendar(); renderDay(); renderUpcoming(); renderMemos();
+  renderTodos(); renderCalendar(); renderDay(); renderUpcoming(); renderMemos(); renderExhibits();
   if ($('relationsView').classList.contains('on')) renderRelations();
   refreshPropCards();
 }
@@ -1994,6 +2065,152 @@ $('memoList').addEventListener('click', (e) => {
 $('memoList').addEventListener('keydown', (e) => {
   if (e.key !== 'Enter' && e.key !== ' ') return;
   const el = e.target.closest('.memo-item'); if (!el) return; e.preventDefault(); cleanupEmptyMemos(el.dataset.id); memoSel = el.dataset.id; renderMemos();
+});
+
+/* ---- 감정물 (좌: 사건번호·감정물·종류 / 중: 진행할·진행한 실험 / 우: 실험별 결과·해석 기록장, 자동 저장) ---- */
+let xbSel = null, xbExpSel = null, xbQuery = '';
+const xbTimers = {};
+try { xbSel = localStorage.getItem('ana-xb-sel'); xbExpSel = localStorage.getItem('ana-xb-exp'); } catch {}
+const xbCur = () => exhibits.find((x) => x.id === xbSel);
+async function xbPost(body, errMsg) {
+  try {
+    const r = await post('/api/exhibit', body);
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) { showErr(j.error === 'Only the author can edit this' ? '작성자만 수정할 수 있어요' : errMsg); return null; }
+    dataVersion = j.version || dataVersion; return j;
+  } catch { showErr(errMsg); return null; }
+}
+function xbEditing(paneId) { const a = document.activeElement; return !!(a && $(paneId).contains(a) && (a.tagName === 'INPUT' || a.tagName === 'TEXTAREA') && a.type !== 'checkbox'); }
+function renderExhibits() {
+  if (xbSel && !exhibits.some((x) => x.id === xbSel)) xbSel = null;
+  if (!xbSel && exhibits.length) xbSel = exhibits[exhibits.length - 1].id;
+  const q = xbQuery.trim().toLowerCase();
+  const shown = exhibits.filter((x) => !q || `${x.caseNo} ${x.label} ${x.kind}`.toLowerCase().includes(q));
+  const byCase = new Map();
+  for (const x of shown) { if (!byCase.has(x.caseNo)) byCase.set(x.caseNo, []); byCase.get(x.caseNo).push(x); }
+  const cases = [...byCase.keys()].sort((a, b) => b.localeCompare(a, 'ko', { numeric: true }));
+  $('xbList').innerHTML = cases.map((c) => `<div class="xb-case"><div class="xb-case-h">${escapeHtml(c)}</div>${
+    byCase.get(c).sort((a, b) => String(a.label).localeCompare(String(b.label), 'ko', { numeric: true })).map((x) => {
+      const ex = x.exps || [], done = ex.filter((e) => e.done).length;
+      return `<div class="xb-item ${x.id === xbSel ? 'sel' : ''}" data-id="${escapeHtml(x.id)}" role="button" tabindex="0">
+        <span class="xl">${escapeHtml(x.label || '(번호 없음)')}</span>${x.kind ? `<span class="xb-kind">${escapeHtml(x.kind)}</span>` : ''}
+        <span class="xb-cnt" title="진행한 실험 / 전체">${done}/${ex.length}</span></div>`; }).join('')}</div>`).join('');
+  $('xbEmpty').textContent = exhibits.length ? '검색 결과가 없어요' : '아직 감정물이 없어요 — 위에서 사건번호와 종류를 넣어 추가하세요';
+  $('xbEmpty').style.display = shown.length ? 'none' : 'block';
+  $('xbCaseList').innerHTML = [...new Set(exhibits.map((x) => x.caseNo))].map((c) => `<option value="${escapeHtml(c)}">`).join('');
+  try { localStorage.setItem('ana-xb-sel', xbSel || ''); } catch {}
+  renderXbExps(); renderXbRec();
+}
+function renderXbExps() {
+  const x = xbCur();
+  $('xbExpsNone').style.display = x ? 'none' : 'flex';
+  if (!x) { $('xbExps').innerHTML = ''; $('xbExps').dataset.id = ''; return; }
+  const ex = x.exps || [];
+  if (xbExpSel && !ex.some((e) => e.id === xbExpSel)) xbExpSel = null;
+  const row = (e) => `<div class="xb-exp ${e.done ? 'done' : ''} ${e.id === xbExpSel ? 'sel' : ''}" data-eid="${escapeHtml(e.id)}" role="button" tabindex="0">
+    <input type="checkbox" data-tog="${escapeHtml(e.id)}" ${e.done ? 'checked' : ''} aria-label="진행 완료 표시">
+    <span class="en">${escapeHtml(e.name)}</span>${e.done && (e.result || e.interp) ? '<span class="ek">기록됨</span>' : ''}${e.date ? `<span class="ed">${escapeHtml(e.date)}</span>` : ''}</div>`;
+  const todo = ex.filter((e) => !e.done), done = ex.filter((e) => e.done);
+  const lists = `<div class="xb-sec">진행해야 할 실험 <span class="n">${todo.length}</span></div>
+    ${todo.map(row).join('') || '<div class="xb-empty-s">남은 실험이 없어요</div>'}
+    <form class="xb-expadd" id="xbExpAdd" autocomplete="off"><input id="xbExpName" placeholder="실험 추가 (예: LC-MS/MS 정량)" aria-label="새 실험 이름" maxlength="200" list="xbExpList"><button type="submit">추가</button></form>
+    <datalist id="xbExpList">${[...new Set(exhibits.flatMap((y) => (y.exps || []).map((e) => e.name)))].map((n) => `<option value="${escapeHtml(n)}">`).join('')}</datalist>
+    <div class="xb-sec">진행한 실험 <span class="n">${done.length}</span></div>
+    ${done.map(row).join('') || '<div class="xb-empty-s">아직 진행한 실험이 없어요 — 체크하면 이쪽으로 옮겨져요</div>'}`;
+  // 같은 감정물을 입력 중이면 머리(사건번호·종류) 입력칸은 그대로 두고 실험 목록만 갈아 끼운다
+  if ($('xbExps').dataset.id === x.id && xbEditing('xbExps')) {
+    const l = $('xbExpLists'); if (!l) return;
+    const inAdd = document.activeElement === $('xbExpName'), v = inAdd ? $('xbExpName').value : '';
+    l.innerHTML = lists;
+    if (inAdd) { $('xbExpName').value = v; $('xbExpName').focus(); }   // 연달아 실험을 추가할 수 있게 입력칸을 되살린다
+    return;
+  }
+  $('xbExps').dataset.id = x.id;
+  $('xbExps').innerHTML = `<div class="xb-head">
+      <div class="xb-row"><label>사건번호<input data-f="caseNo" value="${escapeHtml(x.caseNo || '')}" maxlength="100"></label></div>
+      <div class="xb-row"><label>감정물 번호<input data-f="label" value="${escapeHtml(x.label || '')}" maxlength="100"></label>
+      <label>종류<input data-f="kind" value="${escapeHtml(x.kind || '')}" maxlength="100" list="xbKindList"></label></div>
+      <div class="xb-bar"><span class="mstate" id="xbHeadState"></span><span class="sp"></span>${isMine(x) ? '<button class="xb-del" id="xbDelX">감정물 삭제</button>' : ''}</div>
+    </div><div id="xbExpLists">${lists}</div>`;
+}
+function renderXbRec() {
+  const x = xbCur(), e = x && (x.exps || []).find((y) => y.id === xbExpSel);
+  try { localStorage.setItem('ana-xb-exp', xbExpSel || ''); } catch {}
+  $('xbRecNone').style.display = e ? 'none' : 'flex';
+  if (!e) { $('xbRec').innerHTML = ''; $('xbRec').dataset.eid = ''; return; }
+  if ($('xbRec').dataset.eid === e.id && xbEditing('xbRec')) return;   // 입력 중엔 서버 갱신이 덮어쓰지 않게
+  $('xbRec').dataset.eid = e.id;
+  $('xbRec').innerHTML = `<div class="xb-rec">
+    <div class="rt">${escapeHtml(e.name)}</div>
+    <div class="rs">${escapeHtml(x.caseNo)} · ${escapeHtml(x.label || '(번호 없음)')}${x.kind ? ' · ' + escapeHtml(x.kind) : ''} · ${e.done ? '진행함' : '진행 예정'}</div>
+    <div class="xb-row"><label class="xb-fl">실험명<input data-r="name" value="${escapeHtml(e.name)}" maxlength="200"></label>
+    <label class="xb-fl xb-fd">실험일<input type="date" data-r="date" value="${escapeHtml(e.date || '')}"></label></div>
+    <label for="xbResult">결과</label>
+    <textarea id="xbResult" data-r="result" placeholder="측정값, 검출 여부, 크로마토그램 소견 등">${escapeHtml(e.result || '')}</textarea>
+    <label for="xbInterp">해석</label>
+    <textarea id="xbInterp" data-r="interp" placeholder="결과를 어떻게 해석했는지, 근거와 한계">${escapeHtml(e.interp || '')}</textarea>
+    <div class="xb-bar"><span class="mstate" id="xbRecState"></span><span class="sp"></span><button class="xb-del" id="xbDelE">실험 삭제</button></div>
+  </div>`;
+}
+function xbSave(key, body, stateEl) {
+  if ($(stateEl)) $(stateEl).textContent = '입력 중…';
+  clearTimeout(xbTimers[key]);
+  xbTimers[key] = setTimeout(async () => {
+    if ($(stateEl)) $(stateEl).textContent = '저장 중…';
+    const j = await xbPost(body(), '저장하지 못했어요');
+    if ($(stateEl)) $(stateEl).textContent = j ? '저장됨' : '저장 실패';
+  }, 600);
+}
+$('xbAddForm').addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  const caseNo = $('xbCase').value.trim(); if (!caseNo) return;
+  const j = await xbPost({ action: 'add', caseNo, label: $('xbLabel').value, kind: $('xbKind').value }, '감정물을 추가하지 못했어요');
+  if (!j) return;
+  xbSel = j.id; xbExpSel = null; $('xbLabel').value = ''; $('xbKind').value = '';
+  await refreshData(); $('xbLabel').focus();
+});
+$('xbSearch').addEventListener('input', () => { xbQuery = $('xbSearch').value; renderExhibits(); });
+function xbPick(el) { xbSel = el.dataset.id; xbExpSel = null; renderExhibits(); }
+$('xbList').addEventListener('click', (ev) => { const el = ev.target.closest('.xb-item'); if (el) xbPick(el); });
+$('xbList').addEventListener('keydown', (ev) => { if (ev.key !== 'Enter' && ev.key !== ' ') return; const el = ev.target.closest('.xb-item'); if (el) { ev.preventDefault(); xbPick(el); } });
+$('xbExps').addEventListener('input', (ev) => {
+  const f = ev.target.dataset.f; const x = xbCur(); if (!f || !x) return;
+  x[f] = ev.target.value;
+  xbSave('x' + x.id, () => ({ action: 'update', id: x.id, caseNo: x.caseNo, label: x.label, kind: x.kind }), 'xbHeadState');
+});
+$('xbExps').addEventListener('focusout', () => setTimeout(() => { if (!xbEditing('xbExps')) renderExhibits(); }, 700));
+$('xbExps').addEventListener('submit', async (ev) => {
+  if (ev.target.id !== 'xbExpAdd') return; ev.preventDefault();
+  const x = xbCur(), name = $('xbExpName').value.trim(); if (!x || !name) return;
+  const j = await xbPost({ action: 'expAdd', id: x.id, name }, '실험을 추가하지 못했어요');
+  if (!j) return;
+  $('xbExpName').value = ''; await refreshData(); if ($('xbExpName')) $('xbExpName').focus();
+});
+$('xbExps').addEventListener('click', async (ev) => {
+  const x = xbCur(); if (!x) return;
+  if (ev.target.id === 'xbDelX') {
+    if (!(await confirmDelete(`감정물 "${x.caseNo} ${x.label || ''}"과 모든 실험 기록`))) return;
+    if (await xbPost({ action: 'remove', id: x.id }, '삭제하지 못했어요')) { xbSel = null; refreshData(); }
+    return;
+  }
+  const tog = ev.target.closest('[data-tog]');
+  if (tog) { const e = x.exps.find((y) => y.id === tog.dataset.tog); if (!e) return;
+    if (await xbPost({ action: 'expUpdate', id: x.id, expId: e.id, done: tog.checked }, '바꾸지 못했어요')) { xbExpSel = e.id; refreshData(); } return; }
+  const row = ev.target.closest('.xb-exp'); if (row) { xbExpSel = row.dataset.eid; renderXbExps(); renderXbRec(); }
+});
+$('xbExps').addEventListener('keydown', (ev) => { if (ev.key !== 'Enter' && ev.key !== ' ') return; const row = ev.target.closest('.xb-exp'); if (row && ev.target === row) { ev.preventDefault(); xbExpSel = row.dataset.eid; renderXbExps(); renderXbRec(); } });
+$('xbRec').addEventListener('input', (ev) => {
+  const f = ev.target.dataset.r; const x = xbCur(); const e = x && x.exps.find((y) => y.id === $('xbRec').dataset.eid); if (!f || !e) return;
+  if (f === 'name' && !ev.target.value.trim()) return;
+  e[f] = ev.target.value;
+  xbSave('e' + e.id + f, () => ({ action: 'expUpdate', id: x.id, expId: e.id, [f]: e[f] }), 'xbRecState');
+});
+$('xbRec').addEventListener('focusout', () => setTimeout(() => { if (!xbEditing('xbRec')) renderXbExps(); }, 700));
+$('xbRec').addEventListener('click', async (ev) => {
+  if (ev.target.id !== 'xbDelE') return;
+  const x = xbCur(), e = x && x.exps.find((y) => y.id === $('xbRec').dataset.eid); if (!e) return;
+  if (!(await confirmDelete(`실험 "${e.name}"과 결과·해석 기록`))) return;
+  if (await xbPost({ action: 'expRemove', id: x.id, expId: e.id }, '삭제하지 못했어요')) { xbExpSel = null; refreshData(); }
 });
 
 /* ---- 요청 (에이전트 → 사용자) ----
@@ -2911,7 +3128,7 @@ $('filesInput').onchange = async () => {
 /* ================= 탭 전환 ================= */
 // 영역(Workspace / System)마다 마지막으로 본 탭을 기억한다
 let appMode = 'ws';
-const lastTab = { ws: 'todo', collab: 'evolve', sys: 'stats' };
+const lastTab = { ws: 'exhibit', collab: 'evolve', sys: 'stats' };
 const AREAS = ['ws', 'collab', 'sys'];
 try { const m = localStorage.getItem('ana-area'); if (AREAS.includes(m)) appMode = m; const t = JSON.parse(localStorage.getItem('ana-area-tabs') || '{}'); Object.assign(lastTab, t); } catch {}
 // 탭 선택은 click()이 아니라 이 함수로 — 클릭 처리 중인 버튼에 다시 click()을 부르면 브라우저가 무시한다
@@ -2919,7 +3136,7 @@ function selectTab(b) {
     if (b.dataset.group && b.dataset.group !== appMode) applyArea(b.dataset.group);
     if ($('memoView').classList.contains('on') && b.dataset.view !== 'memo') cleanupEmptyMemos(); // 메모 탭 이탈 시 빈 메모 정리(진화 #3)
     document.querySelectorAll('.topnav .tab').forEach((x) => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-selected', String(on)); });
-    ['todo', 'schedule', 'memo', 'evolve', 'approvals', 'requests', 'requirements', 'stats', 'relations', 'reliability', 'safety', 'security', 'update', 'files'].forEach((v) => $(v + 'View').classList.toggle('on', b.dataset.view === v));
+    ['exhibit', 'todo', 'schedule', 'memo', 'evolve', 'approvals', 'requests', 'requirements', 'stats', 'relations', 'reliability', 'safety', 'security', 'update', 'files'].forEach((v) => $(v + 'View').classList.toggle('on', b.dataset.view === v));
     lastTab[appMode] = b.dataset.view;
     revealTab(b);
     try { localStorage.setItem('ana-area-tabs', JSON.stringify(lastTab)); } catch {}
